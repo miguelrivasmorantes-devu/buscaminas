@@ -27,9 +27,27 @@ public class Acciones {
 
     public void actualizarTablero(Tablero tablero, char accion, int fila, int columna) {
         if (accion == 'D') {
-            tablero.tablero[fila][columna] = 'D';
-        } else if (accion == 'M') {
+            int contadorMinas = contarMinasAdyacentes(tablero, fila, columna);
+            tablero.tablero[fila][columna] = (char) ('0' + contadorMinas);
+        } 
+        else if (accion == 'M') {
             tablero.tablero[fila][columna] = 'M';
         }
+    }
+
+    private int contarMinasAdyacentes(Tablero tablero, int fila, int columna) {
+        int contadorMinas = 0;
+
+        for (int i = fila - 1; i <= fila + 1; i++) {
+            for (int j = columna - 1; j <= columna + 1; j++) {
+                for (int[] mina : tablero.minas) {
+                    if (mina[0] == i && mina[1] == j) {
+                        contadorMinas++;
+                    }
+                }
+            }
+        }
+
+        return contadorMinas;
     }
 }
