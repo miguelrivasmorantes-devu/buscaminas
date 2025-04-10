@@ -96,7 +96,7 @@ public class Tablero {
 
         for (int i = 1; i <= area; i++) {
             for (int j = 1; j <= area; j++) {
-                if (tablero[i][j] == 'D') {
+                if (tablero[i][j] != '_' & tablero[i][j] != 'M') {
                     totalDespejadas++;
                 }
             }
@@ -112,10 +112,32 @@ public class Tablero {
 
     public void marcarCasilla(int fila, int columna, char accion) {
         if (accion == 'D') {
-            int contadorMinas = contarMinasAdyacentes(fila, columna);
-            tablero[fila][columna] = (char) ('0' + contadorMinas);
+            revelarCasilla(fila, columna);
         } else if (accion == 'M') {
             tablero[fila][columna] = 'M';
+        }
+    }
+
+
+
+    private void revelarCasilla(int fila, int columna) {
+        if (fila < 1 || fila > area || columna < 1 || columna > area) return;
+        if (tablero[fila][columna] != '_' && tablero[fila][columna] != 'M') return;
+        tablero[fila][columna] = '_';
+
+
+        int contadorMinas = contarMinasAdyacentes(fila, columna);
+
+        if (tablero[fila][columna] == 'M' && contadorMinas > 0) return;
+
+        tablero[fila][columna] = (char) ('0' + contadorMinas);
+
+        if (contadorMinas == 0) {
+            for (int i = fila - 1; i <= fila + 1; i++) {
+                for (int j = columna - 1; j <= columna + 1; j++) {
+                    revelarCasilla(i, j);
+                }
+            }
         }
     }
 
