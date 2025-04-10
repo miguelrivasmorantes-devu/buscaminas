@@ -90,8 +90,9 @@ public class Tablero {
         System.out.println("\n💥 ¡Mina! ¡Has perdido! 💥");
     }
 
-    public boolean comprobarVictoria(int cantidadMinas) {
+    public boolean comprobarVictoria() {
         int totalDespejadas = 0;
+        int cantidadMinas = getCantidadMinas();
         int objetivo = (area * area) - cantidadMinas;
 
         for (int i = 1; i <= area; i++) {

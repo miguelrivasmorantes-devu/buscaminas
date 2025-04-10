@@ -29,7 +29,7 @@ public class Buscaminas {
             if (tablero.comprobarDerrota(fila, columna, accion)) {
                 tablero.hasPerdido();
                 jugando = false;
-            } else if (tablero.comprobarVictoria(tablero.getCantidadMinas())) {
+            } else if (tablero.comprobarVictoria()) {
                 tablero.celebrarVictoria();
                 jugando = false;
             }
